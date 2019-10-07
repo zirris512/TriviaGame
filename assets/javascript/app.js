@@ -1,55 +1,9 @@
 var seconds = 120;
 var interval;
-var questions = {
-    question1: {
-        question: "Who is Nintendo's iconic red plumber?",
-        options: {
-            choice1: "Luigi",
-            choice2: "Mario",
-            choice3: "Link",
-            choice4: "Toad"
-        }
-    },
-    question2: {
-        question: "Where did the fairy, Navi, get her name from?",
-        options: {
-            choice1: "Navel",
-            choice2: "Navy",
-            choice3: "Navigation",
-            choice4: "North American Vampire"
-        }
-    },
-    question3: {
-        question: "What is Nintendo's best-selling exclusive title?",
-        options: {
-            choice1: "Duck Hunt",
-            choice2: "Super Mario Bros",
-            choice3: "Wii Sports",
-            choice4: "Mario Kart Wii"
-        }
-    },
-    question4: {
-        question: "What is the first Nintendo game to feature Mario?",
-        options: {
-            choice1: "Mario Bros",
-            choice2: "Tennis",
-            choice3: "Donkey Kong",
-            choice4: "Wrecking Crew"
-        }
-    },
-    question5: {
-        question: "Which film inspired the enemies in Nintendo's Metroid series?",
-        options: {
-            choice1: "Star Wars",
-            choice2: "Galaxy of Terror",
-            choice3: "Predator",
-            choice4: "Alien"
-        }
-    }
-}
-console.log(questions);
+var timerStart = false;
 
 function quizTimer() {
+    timerStart = true;
     clearInterval(interval);
     interval = setInterval(decrement, 1000);
 }
@@ -59,25 +13,87 @@ function decrement() {
     $("#countdown").text(seconds);
     if (seconds === 0) {
         alert("Time Up!");
-        alert(score());
+        score();
         gameReset();
     }
 }
 
 function gameReset() {
     clearInterval(interval);
-    $("#questions").empty();
+    $("input[name=Question1]").prop("checked", false);
+    $("input[name=Question2]").prop("checked", false);
+    $("input[name=Question3]").prop("checked", false);
+    $("input[name=Question4]").prop("checked", false);
+    $("input[name=Question5]").prop("checked", false);
+    seconds=120;
+    $("#countdown").text(seconds);
 }
 
 function score() {
-
+    var q1 = $('input[name=Question1]:checked').val();
+    var q2 = $('input[name=Question2]:checked').val();
+    var q3 = $('input[name=Question3]:checked').val();
+    var q4 = $('input[name=Question4]:checked').val();
+    var q5 = $('input[name=Question5]:checked').val();
+    var correct = 0;
+    var incorrect = 0;
+    var unanswered = 0;
+    if (q1 === "Mario") {
+        correct++;
+    }
+    else if (q1 === undefined) {
+        unanswered++;
+    }
+    else {
+        incorrect++;
+    }
+    if (q2 === "Navigation") {
+        correct++;
+    }
+    else if (q2 === undefined) {
+        unanswered++;
+    }
+    else {
+        incorrect++;
+    }
+    if (q3 === "Wii Sports") {
+        correct++;
+    }
+    else if (q3 === undefined) {
+        unanswered++;
+    }
+    else {
+        incorrect++;
+    }
+    if (q4 === "Donkey Kong") {
+        correct++;
+    }
+    else if (q4 === undefined) {
+        unanswered++;
+    }
+    else {
+        incorrect++;
+    }
+    if (q5 === "Alien") {
+        correct++;
+    }
+    else if (q5 === undefined) {
+        unanswered++;
+    }
+    else {
+        incorrect++;
+    }
+    alert("Correct: " + correct + "\nIncorrect: " + incorrect + "\nUnanswered: " + unanswered);
 }
 
 $("#start").on("click", function() {
-    for(var i = 0; i < questions.length; i++) {
-        var p = $("<p>");
-        p.addClass("question");
-        $("#questions").append(p);
-        $(".question").append(questions[i]);
+    quizTimer();
+})
+
+$("#reset-button").on("click", function() {
+    if (timerStart) {
+        score();
+        gameReset();
+        timerStart = false;
     }
 })
