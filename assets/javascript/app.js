@@ -4,6 +4,11 @@ var timerStart = false;
 
 function quizTimer() {
     timerStart = true;
+    $("input[name=Question1]").prop("checked", false);
+    $("input[name=Question2]").prop("checked", false);
+    $("input[name=Question3]").prop("checked", false);
+    $("input[name=Question4]").prop("checked", false);
+    $("input[name=Question5]").prop("checked", false);
     clearInterval(interval);
     interval = setInterval(decrement, 1000);
 }
