@@ -4,11 +4,7 @@ var timerStart = false;
 
 function quizTimer() {
     timerStart = true;
-    $("input[name=Question1]").prop("checked", false);
-    $("input[name=Question2]").prop("checked", false);
-    $("input[name=Question3]").prop("checked", false);
-    $("input[name=Question4]").prop("checked", false);
-    $("input[name=Question5]").prop("checked", false);
+    answerReset();
     clearInterval(interval);
     interval = setInterval(decrement, 1000);
 }
@@ -25,13 +21,18 @@ function decrement() {
 
 function gameReset() {
     clearInterval(interval);
+    answerReset();
+    seconds=120;
+    $("#countdown").text(seconds);
+}
+
+function answerReset () {
     $("input[name=Question1]").prop("checked", false);
     $("input[name=Question2]").prop("checked", false);
     $("input[name=Question3]").prop("checked", false);
     $("input[name=Question4]").prop("checked", false);
     $("input[name=Question5]").prop("checked", false);
-    seconds=120;
-    $("#countdown").text(seconds);
+
 }
 
 function score() {
@@ -43,6 +44,7 @@ function score() {
     var correct = 0;
     var incorrect = 0;
     var unanswered = 0;
+
     if (q1 === "Mario") {
         correct++;
     }
